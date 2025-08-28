@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Tracking System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .search-input {
+            width: 120px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        
+        .search-button {
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .animal-details {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .detail-row {
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+        
+        .dataTableEx {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .dataTableEx th {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+        
+        .dataTableEx td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
+        
+        .rowClass1 td {
+            background-color: #ffffff;
+        }
+        
+        .gray-grid-first {
+            background-color: #f1f3f4;
+        }
+        
+        .gray-grid-second {
+            background-color: #ffffff;
+        }
+        
+        .no-results {
+            display: none;
+            color: #dc3545;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Animal Tracking System</h1>
+        
+        <div class="search-section">
+            <label for="eartag-input">Enter Ear Tag Number:</label>
+            <input 
+                type="text" 
+                id="eartag-input" 
+                class="search-input"
+                maxlength="16"
+                placeholder="Enter tag number"
+                title="The eartag field"
+                alt="To view another animal, enter the eartag number"
+            >
+            <button 
+                id="search-button" 
+                class="search-button"
+                title="The search button"
+                alt="Click here if you have entered a new eartag number"
+            >
+                Search
+            </button>
+        </div>
+        
+        <div id="animal-details" class="animal-details">
+            <h2>Animal Details</h2>
+            <div class="detail-row">
+                <span class="detail-label">Date of Birth:</span>
+                <span id="date-of-birth">18/01/2025</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Sex:</span>
+                <span id="sex">M</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Ear Tag:</span>
+                <span id="ear-tag-display">1</span>
+            </div>
+        </div>
+        
+        <div id="no-results" class="no-results">
+            No animal found with the specified ear tag number.
+        </div>
+        
+        <table id="movement-history-table" class="dataTableEx">
+            <thead>
+                <tr>
+                    <th width="20%">Holding</th>
+                    <th width="20%">Movement</th>
+                    <th width="20%">ON</th>
+                    <th width="20%">Movement</th>
+                    <th width="20%">OFF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Movement data will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Animal data storage
+        const animalData = {
+            '1': {
+                dateOfBirth: '18/01/2025',
+                sex: 'M',
+                earTag: '1',
+                movements: [
+                    { holdingId: '06', holdingName: 'Cheshire', onMovement: 'Birth', onDate: '18/01/2025', offMovement: 'Off Holding', offDate: '10/02/2025' },
+                    { holdingId: '56', holdingName: 'Clwyd', onMovement: 'On Holding', onDate: '10/02/2025', offMovement: 'Off Holding', offDate: '10/02/2025' },
+                    { holdingId: '56', holdingName: 'Clwyd', onMovement: 'On Holding', onDate: '10/02/2025', offMovement: 'Off Holding', offDate: '23/04/2025' },
+                    { holdingId: '55', holdingName: 'Dyfed', onMovement: 'On Holding', onDate: '23/04/2025', offMovement: '', offDate: '' }
+                ]
+            },
+            '2': {
+                dateOfBirth: '05/03/2024',
+                sex: 'F',
+                earTag: '2',
+                movements: [
+                    { holdingId: '12', holdingName: 'Yorkshire', onMovement: 'Birth', onDate: '05/03/2024', offMovement: 'Off Holding', offDate: '15/06/2024' },
+                    { holdingId: '23', holdingName: 'Lancashire', onMovement: 'On Holding', onDate: '15/06/2024', offMovement: 'Off Holding', offDate: '20/08/2024' },
+                    { holdingId: '34', holdingName: 'Cumbria', onMovement: 'On Holding', onDate: '20/08/2024', offMovement: '', offDate: '' }
+                ]
+            },
+            '3': {
+                dateOfBirth: '12/11/2023',
+                sex: 'M',
+                earTag: '3',
+                movements: [
+                    { holdingId: '07', holdingName: 'Devon', onMovement: 'Birth', onDate: '12/11/2023', offMovement: 'Off Holding', offDate: '28/01/2024' },
+                    { holdingId: '18', holdingName: 'Cornwall', onMovement: 'On Holding', onDate: '28/01/2024', offMovement: 'Off Holding', offDate: '15/04/2024' },
+                    { holdingId: '29', holdingName: 'Somerset', onMovement: 'On Holding', onDate: '15/04/2024', offMovement: 'Off Holding', offDate: '10/07/2024' },
+                    { holdingId: '41', holdingName: 'Dorset', onMovement: 'On Holding', onDate: '10/07/2024', offMovement: 'Off Holding', offDate: '22/09/2024' },
+                    { holdingId: '52', holdingName: 'Wiltshire', onMovement: 'On Holding', onDate: '22/09/2024', offMovement: '', offDate: '' }
+                ]
+            },
+            '4': {
+                dateOfBirth: '08/07/2024',
+                sex: 'F',
+                earTag: '4',
+                movements: [
+                    { holdingId: '15', holdingName: 'Gloucestershire', onMovement: 'Birth', onDate: '08/07/2024', offMovement: 'Off Holding', offDate: '25/09/2024' },
+                    { holdingId: '26', holdingName: 'Oxfordshire', onMovement: 'On Holding', onDate: '25/09/2024', offMovement: '', offDate: '' }
+                ]
+            },
+            '5': {
+                dateOfBirth: '20/09/2023',
+                sex: 'M',
+                earTag: '5',
+                movements: [
+                    { holdingId: '03', holdingName: 'Kent', onMovement: 'Birth', onDate: '20/09/2023', offMovement: 'Off Holding', offDate: '12/12/2023' },
+                    { holdingId: '14', holdingName: 'Surrey', onMovement: 'On Holding', onDate: '12/12/2023', offMovement: 'Off Holding', offDate: '18/03/2024' },
+                    { holdingId: '25', holdingName: 'Sussex', onMovement: 'On Holding', onDate: '18/03/2024', offMovement: 'Off Holding', offDate: '05/06/2024' },
+                    { holdingId: '36', holdingName: 'Hampshire', onMovement: 'On Holding', onDate: '05/06/2024', offMovement: 'Off Holding', offDate: '14/08/2024' },
+                    { holdingId: '47', holdingName: 'Berkshire', onMovement: 'On Holding', onDate: '14/08/2024', offMovement: 'Off Holding', offDate: '28/10/2024' },
+                    { holdingId: '58', holdingName: 'Buckinghamshire', onMovement: 'On Holding', onDate: '28/10/2024', offMovement: '', offDate: '' }
+                ]
+            },
+            '6': {
+                dateOfBirth: '14/04/2024',
+                sex: 'F',
+                earTag: '6',
+                movements: [
+                    { holdingId: '09', holdingName: 'Northumberland', onMovement: 'Birth', onDate: '14/04/2024', offMovement: '', offDate: '' }
+                ]
+            },
+            '7': {
+                dateOfBirth: '03/08/2023',
+                sex: 'M',
+                earTag: '7',
+                movements: [
+                    { holdingId: '11', holdingName: 'Staffordshire', onMovement: 'Birth', onDate: '03/08/2023', offMovement: 'Off Holding', offDate: '20/11/2023' },
+                    { holdingId: '22', holdingName: 'Derbyshire', onMovement: 'On Holding', onDate: '20/11/2023', offMovement: 'Off Holding', offDate: '15/02/2024' },
+                    { holdingId: '33', holdingName: 'Nottinghamshire', onMovement: 'On Holding', onDate: '15/02/2024', offMovement: 'Death', offDate: '08/07/2024' }
+                ]
+            },
+            '8': {
+                dateOfBirth: '16/12/2022',
+                sex: 'F',
+                earTag: '8',
+                movements: [
+                    { holdingId: '04', holdingName: 'Lincolnshire', onMovement: 'Birth', onDate: '16/12/2022', offMovement: 'Off Holding', offDate: '25/05/2023' },
+                    { holdingId: '17', holdingName: 'Norfolk', onMovement: 'On Holding', onDate: '25/05/2023', offMovement: 'Off Holding', offDate: '12/09/2023' },
+                    { holdingId: '28', holdingName: 'Suffolk', onMovement: 'On Holding', onDate: '12/09/2023', offMovement: 'Off Holding', offDate: '30/01/2024' },
+                    { holdingId: '39', holdingName: 'Essex', onMovement: 'On Holding', onDate: '30/01/2024', offMovement: 'Off Holding', offDate: '18/04/2024' },
+                    { holdingId: '48', holdingName: 'Hertfordshire', onMovement: 'On Holding', onDate: '18/04/2024', offMovement: 'Death', offDate: '22/12/2024' }
+                ]
+            }
+        };
+
+        // Get DOM elements
+        const eartagInput = document.getElementById('eartag-input');
+        const searchButton = document.getElementById('search-button');
+        const animalDetails = document.getElementById('animal-details');
+        const movementTable = document.getElementById('movement-history-table');
+        const noResults = document.getElementById('no-results');
+        const dateOfBirthSpan = document.getElementById('date-of-birth');
+        const sexSpan = document.getElementById('sex');
+        const earTagDisplay = document.getElementById('ear-tag-display');
+
+        // Convert input to uppercase on blur
+        eartagInput.addEventListener('blur', function() {
+            this.value = this.value.toUpperCase();
+        });
+
+        // Handle search functionality
+        function performSearch() {
+            const earTag = eartagInput.value.trim().toUpperCase();
+            
+            // Hide all sections first
+            animalDetails.style.display = 'none';
+            movementTable.style.display = 'none';
+            noResults.style.display = 'none';
+            
+            if (earTag === '') {
+                return;
+            }
+            
+            // Check if animal exists in our data
+            if (animalData[earTag]) {
+                const animal = animalData[earTag];
+                
+                // Update animal details
+                dateOfBirthSpan.textContent = animal.dateOfBirth;
+                sexSpan.textContent = animal.sex;
+                earTagDisplay.textContent = animal.earTag;
+                
+                // Update movement history table
+                updateMovementTable(animal.movements);
+                
+                // Show animal details and movement table
+                animalDetails.style.display = 'block';
+                movementTable.style.display = 'table';
+            } else {
+                // Show no results message
+                noResults.style.display = 'block';
+            }
+        }
+        
+        // Function to update movement history table
+        function updateMovementTable(movements) {
+            const tbody = movementTable.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            movements.forEach((movement, index) => {
+                const row = document.createElement('tr');
+                row.className = 'rowClass1';
+                
+                row.innerHTML = `
+                    <td class="gray-grid-first">
+                        <div>${movement.holdingId}</div>
+                        <div>${movement.holdingName}</div>
+                    </td>
+                    <td class="gray-grid-second">${movement.onMovement}</td>
+                    <td class="gray-grid-first">${movement.onDate}</td>
+                    <td class="gray-grid-second">${movement.offMovement}</td>
+                    <td class="gray-grid-second">${movement.offDate}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // Event listeners
+        searchButton.addEventListener('click', performSearch);
+        
+        eartagInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+            // Allow only alphanumeric characters
+            const char = String.fromCharCode(event.which);
+            if (!/[a-zA-Z0-9]/.test(char)) {
+                event.preventDefault();
+            }
+        });
+
+        // Auto-uppercase as user types
+        eartagInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+</body>
+</html>
