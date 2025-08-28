@@ -27,28 +27,6 @@
             border-radius: 5px;
         }
         
-        .search-input {
-            width: 120px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            text-transform: uppercase;
-        }
-        
-        .search-button {
-            padding: 5px 15px;
-            margin-left: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .search-button:hover {
-            background-color: #0056b3;
-        }
-        
         .animal-details {
             margin-bottom: 20px;
             padding: 15px;
@@ -74,7 +52,7 @@
             display: none;
         }
         
-        .dataTableEx th {
+        .ctsol-headerClass-bold {
             background-color: #6c757d;
             color: white;
             padding: 10px;
@@ -83,14 +61,9 @@
             border: 1px solid #ddd;
         }
         
-        .dataTableEx td {
+        .rowClass1 td {
             padding: 8px 10px;
             border: 1px solid #ddd;
-            background-color: #f8f9fa;
-        }
-        
-        .rowClass1 td {
-            background-color: #ffffff;
         }
         
         .gray-grid-first {
@@ -101,6 +74,14 @@
             background-color: #ffffff;
         }
         
+        .ctsol-view-cell {
+            margin: 2px 0;
+        }
+        
+        .outputText {
+            font-weight: bold;
+        }
+        
         .no-results {
             display: none;
             color: #dc3545;
@@ -109,6 +90,28 @@
             background-color: #f8d7da;
             border-radius: 5px;
         }
+        
+        input[type="text"] {
+            width: 120px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        
+        input[type="submit"] {
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -116,35 +119,35 @@
         <h1>Animal Tracking System</h1>
         
         <div class="search-section">
-            <label for="eartag-input">Enter Ear Tag Number:</label>
+            <label for="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:text_eartag">Enter Ear Tag Number:</label>
             <input 
-                type="text" 
-                id="eartag-input" 
-                class="search-input"
-                maxlength="16"
-                placeholder="Enter tag number"
+                id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:text_eartag" 
+                name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:text_eartag" 
+                style="width:120px;" 
+                maxlength="16" 
+                onblur="this.value=this.value.toUpperCase();" 
+                alt="To view another animal, enter the eartag number" 
                 title="The eartag field"
-                alt="To view another animal, enter the eartag number"
             >
-            <button 
-                id="search-button" 
-                class="search-button"
+            <input 
+                type="submit" 
+                value="Search" 
+                id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:button_search" 
+                name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:button_search" 
+                alt="Click here if you have entered a new eartag number" 
                 title="The search button"
-                alt="Click here if you have entered a new eartag number"
             >
-                Search
-            </button>
         </div>
         
         <div id="animal-details" class="animal-details">
             <h2>Animal Details</h2>
             <div class="detail-row">
                 <span class="detail-label">Date of Birth:</span>
-                <span id="date-of-birth">18/01/2025</span>
+                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:viewCalvingHistoryForm:table_animal_details:0:value_date_of_birth">18/01/2025</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Sex:</span>
-                <span id="sex">M</span>
+                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:viewCalvingHistoryForm:table_animal_details:0:value_sex">M</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Ear Tag:</span>
@@ -156,14 +159,38 @@
             No animal found with the specified ear tag number.
         </div>
         
-        <table id="movement-history-table" class="dataTableEx">
+        <table id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history" class="dataTableEx" width="100%" border="0" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th width="20%">Holding</th>
-                    <th width="20%">Movement</th>
-                    <th width="20%">ON</th>
-                    <th width="20%">Movement</th>
-                    <th width="20%">OFF</th>
+                    <th class="ctsol-headerClass-bold" width="20%">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:autoid72" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:autoid72" class="gray-right-border">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:header_holding" class="outputText">Holding</span>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="ctsol-headerClass-bold" width="20%">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:header_on_type" class="outputText">Movement</span>
+                        </div>
+                    </th>
+                    <th class="ctsol-headerClass-bold" width="20%">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:autoid83" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:autoid83" class="gray-right-border">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:header_on_date" class="outputText">ON</span>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="ctsol-headerClass-bold" width="20%">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:header_off_type" class="outputText">Movement</span>
+                        </div>
+                    </th>
+                    <th class="ctsol-headerClass-bold" width="20%">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:header_off_date" class="outputText">OFF</span>
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -262,20 +289,71 @@
             }
         };
 
-        // Get DOM elements
-        const eartagInput = document.getElementById('eartag-input');
-        const searchButton = document.getElementById('search-button');
+        // Get DOM elements using original IDs
+        const eartagInput = document.getElementById('viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:text_eartag');
+        const searchButton = document.getElementById('viewns_7_6GL81BO09GVV70IEAEIID52OI7_:searchForm:button_search');
         const animalDetails = document.getElementById('animal-details');
-        const movementTable = document.getElementById('movement-history-table');
+        const movementTable = document.getElementById('viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history');
         const noResults = document.getElementById('no-results');
-        const dateOfBirthSpan = document.getElementById('date-of-birth');
-        const sexSpan = document.getElementById('sex');
+        const dateOfBirthSpan = document.getElementById('viewns_7_6GL81BO09GVV70IEAEIID52OI7_:viewCalvingHistoryForm:table_animal_details:0:value_date_of_birth');
+        const sexSpan = document.getElementById('viewns_7_6GL81BO09GVV70IEAEIID52OI7_:viewCalvingHistoryForm:table_animal_details:0:value_sex');
         const earTagDisplay = document.getElementById('ear-tag-display');
 
-        // Convert input to uppercase on blur
-        eartagInput.addEventListener('blur', function() {
-            this.value = this.value.toUpperCase();
-        });
+        // Function to update movement history table with original HTML structure
+        function updateMovementTable(movements) {
+            const tbody = movementTable.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            movements.forEach((movement, index) => {
+                const row = document.createElement('tr');
+                row.className = 'rowClass1';
+                
+                row.innerHTML = `
+                    <td width="20%" class="gray-grid-first">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid76" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid76">
+                                <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid77" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid77" class="ctsol-view-cell">
+                                    <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:value_countyHoldingId">${movement.holdingId}</span>
+                                </div>
+                                <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid78" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid78" class="ctsol-view-cell">
+                                    <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:value_countyHoldingName">${movement.holdingName}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="20%" class="gray-grid-second">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid81" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid81">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid82">${movement.onMovement}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="20%" class="gray-grid-first">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid86" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid86">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid87">${movement.onDate}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="20%" class="gray-grid-second">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid90" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid90">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid91">${movement.offMovement}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="20%" class="gray-grid-second">
+                        <div style="overflow: -moz-scrollbars-none; overflow-x: hidden; width: 100%;">
+                            <div id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid94" name="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid94">
+                                <span id="viewns_7_6GL81BO09GVV70IEAEIID52OI7_:data_form:table_movement_history:${index}:autoid95">${movement.offDate}</span>
+                            </div>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
 
         // Handle search functionality
         function performSearch() {
@@ -294,7 +372,7 @@
             if (animalData[earTag]) {
                 const animal = animalData[earTag];
                 
-                // Update animal details
+                // Update animal details using original IDs
                 dateOfBirthSpan.textContent = animal.dateOfBirth;
                 sexSpan.textContent = animal.sex;
                 earTagDisplay.textContent = animal.earTag;
@@ -310,29 +388,15 @@
                 noResults.style.display = 'block';
             }
         }
-        
-        // Function to update movement history table
-        function updateMovementTable(movements) {
-            const tbody = movementTable.querySelector('tbody');
-            tbody.innerHTML = '';
-            
-            movements.forEach((movement, index) => {
-                const row = document.createElement('tr');
-                row.className = 'rowClass1';
-                
-                row.innerHTML = `
-                    <td class="gray-grid-first">
-                        <div>${movement.holdingId}</div>
-                        <div>${movement.holdingName}</div>
-                    </td>
-                    <td class="gray-grid-second">${movement.onMovement}</td>
-                    <td class="gray-grid-first">${movement.onDate}</td>
-                    <td class="gray-grid-second">${movement.offMovement}</td>
-                    <td class="gray-grid-second">${movement.offDate}</td>
-                `;
-                
-                tbody.appendChild(row);
-            });
+
+        // Function to handle key press validation (from original)
+        function ns_7_6GL81BO09GVV70IEAEIID52OI7_text_eartagallow(input, event) {
+            const char = String.fromCharCode(event.which);
+            if (!/[a-zA-Z0-9]/.test(char)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
         }
 
         // Event listeners
@@ -342,14 +406,10 @@
             if (event.key === 'Enter') {
                 performSearch();
             }
-            // Allow only alphanumeric characters
-            const char = String.fromCharCode(event.which);
-            if (!/[a-zA-Z0-9]/.test(char)) {
-                event.preventDefault();
-            }
+            return ns_7_6GL81BO09GVV70IEAEIID52OI7_text_eartagallow(this, event);
         });
 
-        // Auto-uppercase as user types
+        // Auto-uppercase as user types (already handled by onblur)
         eartagInput.addEventListener('input', function() {
             this.value = this.value.toUpperCase();
         });
